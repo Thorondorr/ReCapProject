@@ -339,4 +339,8 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-Entity/*
+Entity/
+bin/Debug/netstandard2.0
+obj
+Entity.csproj
+
