@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using System;
 
 namespace ConsoleUI
@@ -11,20 +12,14 @@ namespace ConsoleUI
         
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new InMemoryCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
             
             foreach(var car in carManager.GetAll())
             {
                 Console.WriteLine(car.Id);
             }
 
-            Console.WriteLine("Ekeleme yapmak için 'a' i tuşlayın");
-            string _key=Console.ReadKey().ToString();
-
-            if (_key == "a")
-            {
-
-            }
+           
             
         }
     }
