@@ -1,15 +1,12 @@
-﻿using Entity.Concreate;
+﻿using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Abstract
 {
-   public interface ICarService
+    public interface IColorServices
     {
-        List<Car> GetAll();
-
-
-
+        List<Color> GetAll();
     }
 }
