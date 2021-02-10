@@ -7,6 +7,6 @@ namespace Business.Abstract
 {
     public interface IBrandServices
     {
-         List<Brand> GetAll();
+         List<Brands> GetAll();
     }
 }

@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAcces.EntityFramework;
+using DataAccess.Abstract;
 using Entity.Concreate;
+using Entity.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,45 +11,20 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRespositoryBase<Cars, RentCarContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarsDetailDto> GetCarsDetails()
         {
-            using(RentCar context = new RentCar())
+            using (RentCarContext context = new RentCarContext())
             {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (RentCar context = new RentCar())
-            {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (RentCar context = new RentCar())
-            {
-                return filter == null
-                    ? context.Set<Car>().ToList()
-                    : context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (RentCar context = new RentCar())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
+                var result = from cars in context.Cars
+                             join colors in context.Colors
+                             on cars.ColorId equals colors.Id
+                             join brands in context.Brands
+                             on cars.BrandId equals brands.Id
+                             select new CarsDetailDto { Brand = brands.Brand,
+                                 Color = colors.Color, DailyPrice = cars.DailyPrice, Id = cars.Id };
+                return result.ToList();
             }
         }
     }

@@ -7,6 +7,6 @@ namespace Business.Abstract
 {
     public interface IColorServices
     {
-        List<Color> GetAll();
+        List<Colors> GetAll();
     }
 }

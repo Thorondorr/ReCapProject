@@ -10,46 +10,46 @@ namespace DataAccess.Concrete
 {
     public class InMemoryCarDal : ICarDal
     {
-        List<Car> _cars;
+        List<Cars> _cars;
 
         public InMemoryCarDal()
         {
-            _cars = new List<Car>
+            _cars = new List<Cars>
             {
-                new Car{Id=1,ModelYear=1996 ,BrandId=1,ColorId=1,DailyPrice=25,Description="Araba_1"},
-                new Car{Id=2,ModelYear=1997 ,BrandId=2,ColorId=2,DailyPrice=225,Description="Araba_2"},
-                new Car{Id=3,ModelYear=1998 ,BrandId=3,ColorId=3,DailyPrice=325,Description="Araba_3"},
-                new Car{Id=4,ModelYear=1999 ,BrandId=4,ColorId=4,DailyPrice=425,Description="Araba_4"},
-                new Car{Id=5,ModelYear=2001 ,BrandId=5,ColorId=5,DailyPrice=525,Description="Araba_5"},
+                new Cars{Id=1,ModelYear=1996 ,BrandId=1,ColorId=1,DailyPrice=25,Description="Araba_1"},
+                new Cars{Id=2,ModelYear=1997 ,BrandId=2,ColorId=2,DailyPrice=225,Description="Araba_2"},
+                new Cars{Id=3,ModelYear=1998 ,BrandId=3,ColorId=3,DailyPrice=325,Description="Araba_3"},
+                new Cars{Id=4,ModelYear=1999 ,BrandId=4,ColorId=4,DailyPrice=425,Description="Araba_4"},
+                new Cars{Id=5,ModelYear=2001 ,BrandId=5,ColorId=5,DailyPrice=525,Description="Araba_5"},
             };
         }
-        public void Add(Car car)
+        public void Add(Cars car)
         {
             _cars.Add(car);
         }
 
-        public void Delete(Car car)
+        public void Delete(Cars car)
         {
-            Car carToDelete = null;
+            Cars carToDelete = null;
 
             carToDelete = _cars.SingleOrDefault(p => p.Id == carToDelete.Id);
 
             _cars.Remove(carToDelete);
         }
 
-        public List<Car> GetAll()
+        public List<Cars> GetAll()
         {
             return _cars;
         }
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        public List<Cars> GetAll(Expression<Func<Cars, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Car car)
+        public void Update(Cars car)
         {
-            Car carToUpdate = null;
+            Cars carToUpdate = null;
             carToUpdate = _cars.SingleOrDefault(predicate => predicate.Id == carToUpdate.Id);
 
             carToUpdate.Id = car.Id;

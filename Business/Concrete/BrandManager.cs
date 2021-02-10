@@ -10,7 +10,7 @@ namespace Business.Concrete
     class BrandManager : IBrandServices
     {
         IBrandDal brandDal;
-        public List<Brand> GetAll()
+        public List<Brands> GetAll()
         {
             return brandDal.GetAll();
         }

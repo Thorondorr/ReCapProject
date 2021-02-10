@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Entity.Concreate
 {
-    public class Car:IEntity
+    public class Cars:IEntity
     {
        // private DateTime year;
         public int Id { get; set; }
