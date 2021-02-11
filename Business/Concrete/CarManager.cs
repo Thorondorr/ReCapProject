@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entity.Concreate;
+using Entity.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,11 @@ namespace Business.Concrete
             }
             else { Console.WriteLine("Boş alanları doldurun!"); }
             
+        }
+
+        public List<CarsDetailDto> carsDetails()
+        {
+            return _carDal.GetCarsDetails();
         }
 
         public List<Cars> GetAll()

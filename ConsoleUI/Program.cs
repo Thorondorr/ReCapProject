@@ -19,9 +19,9 @@ namespace ConsoleUI
             Cars car;
 
 
-            foreach (var a in carManager.GetAll())
+            foreach (var a in carManager.carsDetails())
             {
-                Console.WriteLine(a.BrandId);
+                Console.WriteLine(a.Id+ "/" + a.DailyPrice + "/" + a.Brand+"/" + a.Color);
             }
 
                      
