@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using Entity.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,24 +12,34 @@ namespace Business.Concrete
     public class RentalManager : IRentalServices
     {
         IRentalServices _rentalServices;
-        public void Add(Rentals rental)
-        {
-            _rentalServices.Add(rental);
+        public IResult Add(Rentals rental)
+        {           
+            if(rental.ReturnDate>rental.RentDate && rental.RentDate != null)
+            {
+               _rentalServices.Add(rental);
+                return new Result(true, Messages.RentalAdded);
+            }
+            return new Result(false, Messages.RentalCanNotAdded);
+           
         }
 
-        public void Delete(Rentals rental)
+        public IResult Delete(Rentals rental)
         {
             _rentalServices.Delete(rental);
+
+            return new Result(true);
         }
 
-        public List<Rentals> GetAll()
+        public IDataResult<List<Rentals>> GetAll()
         {
-          return  _rentalServices.GetAll().ToList();
+            return new SuccesDataResult<List<Rentals>>((List<Rentals>)_rentalServices.GetAll(), Messages.RentalsListed); 
+
         }
 
-        public void Update(Rentals rental)
+        public IResult Update(Rentals rental)
         {
             _rentalServices.Update(rental);
+            return new Result(true);
         }
     }
 }
