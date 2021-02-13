@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entity.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,18 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalServices
     {
-        IRentalServices _rentalServices;
+        IRentalDal _rentalDal;
+       
+        public RentalManager(IRentalDal rentalDal)
+        {
+             _rentalDal= rentalDal;
+        }
+
         public IResult Add(Rentals rental)
         {           
             if(rental.ReturnDate>rental.RentDate && rental.RentDate != null)
             {
-               _rentalServices.Add(rental);
+                _rentalDal.Add(rental);
                 return new Result(true, Messages.RentalAdded);
             }
             return new Result(false, Messages.RentalCanNotAdded);
@@ -25,20 +33,20 @@ namespace Business.Concrete
 
         public IResult Delete(Rentals rental)
         {
-            _rentalServices.Delete(rental);
+            _rentalDal.Delete(rental);
 
             return new Result(true);
         }
 
         public IDataResult<List<Rentals>> GetAll()
         {
-            return new SuccesDataResult<List<Rentals>>((List<Rentals>)_rentalServices.GetAll(), Messages.RentalsListed); 
+            return new SuccesDataResult<List<Rentals>>(_rentalDal.GetAll(), Messages.RentalsListed); 
 
         }
 
         public IResult Update(Rentals rental)
         {
-            _rentalServices.Update(rental);
+            _rentalDal.Update(rental);
             return new Result(true);
         }
     }
