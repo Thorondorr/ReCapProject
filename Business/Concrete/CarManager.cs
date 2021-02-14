@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concreate;
 using Entity.DTOs;
@@ -17,29 +19,41 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Cars car)
+        public IResult Add(Cars car)
         {    if( car.ModelYear!=null && car.BrandId!=null &&
                 car.ColorId != null && car.Description!=null && car.DailyPrice>0)
             {
                 _carDal.Add(car);
+                return new Result(true, Messages.RentalAdded);
             }
-            else { Console.WriteLine("Boş alanları doldurun!"); }
+            return new Result(false, Messages.RentalCanNotAdded);
             
         }
 
-        public List<CarsDetailDto> carsDetails()
-        {
-            return _carDal.GetCarsDetails();
+        public IDataResult<List<CarsDetailDto>> carsDetails()
+        {         
+            return new SuccesDataResult<List<CarsDetailDto>>(_carDal.GetCarsDetails());
         }
 
-        public List<Cars> GetAll()
+        public IResult Delete(Cars car)
         {
-           return _carDal.GetAll();
+            _carDal.Delete(car);
+            return new Result(true, Messages.Succesful);
+        }
+        public IResult Update(Cars car)
+        {
+            _carDal.Update(car);
+            return new Result(true, Messages.Succesful);
         }
 
-        public List<Cars> GetAllByCategory(int id)
+        public IDataResult<List<Cars>> GetAll()
         {
-            return _carDal.GetAll(p => p.Id == id);
+          return  new SuccesDataResult<List<Cars>>(_carDal.GetAll());
+        }
+
+       public IDataResult<List<Cars>> GetAllByCategory(int id)
+        {
+            return new SuccesDataResult<List<Cars>>(_carDal.GetAll(p => p.Id == id));
         }
     }
 }

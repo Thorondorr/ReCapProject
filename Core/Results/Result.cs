@@ -6,15 +6,20 @@ namespace Core.Utilities.Results
 {
     public class Result : IResult
     {
-        public Result(bool succes,string message):this(succes)
+        
+        public Result(bool succes,string message):this(succes)//tek parametreli ctor çalıştır 
         {
+            //Succes = succes;
             Message = message;
+
         }
+
         public Result(bool succes)
         {
             Succes = succes;
         }
-        public bool Succes { get; }
+
+        public bool Succes { get ; } 
 
         public string Message { get; }
     }

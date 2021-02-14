@@ -1,4 +1,5 @@
 ﻿using Core.DataAcces.EntityFramework;
+using Core.Entities;
 using DataAccess.Abstract;
 using Entity.Concreate;
 using Entity.DTOs;
