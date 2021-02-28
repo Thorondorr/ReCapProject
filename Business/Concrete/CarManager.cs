@@ -4,6 +4,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entity.Concreate;
 using Entity.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,18 +21,19 @@ namespace Business.Concrete
         }
 
         public IResult Add(Cars car)
-        {    if( car.ModelYear!=null && car.BrandId!=null &&
-                car.ColorId != null && car.Description!=null && car.DailyPrice>0)
-            {
-                _carDal.Add(car);
-                return new Result(true, Messages.RentalAdded);
-            }
-            return new Result(false, Messages.RentalCanNotAdded);
+        {
+            var context = new ValidationContext<Cars>(car);
             
+
+            _carDal.Add(car);
+            return new Result(true, Messages.RentalAdded);
+
+
+
         }
 
         public IDataResult<List<CarsDetailDto>> carsDetails()
-        {         
+        {
             return new SuccesDataResult<List<CarsDetailDto>>(_carDal.GetCarsDetails());
         }
 
@@ -48,10 +50,10 @@ namespace Business.Concrete
 
         public IDataResult<List<Cars>> GetAll()
         {
-          return  new SuccesDataResult<List<Cars>>(_carDal.GetAll());
+            return new SuccesDataResult<List<Cars>>(_carDal.GetAll());
         }
 
-       public IDataResult<List<Cars>> GetAllByCategory(int id)
+        public IDataResult<List<Cars>> GetAllByCategory(int id)
         {
             return new SuccesDataResult<List<Cars>>(_carDal.GetAll(p => p.Id == id));
         }
