@@ -7,10 +7,10 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarDal : IEntityRepository<Cars>
+    public interface ICarDal : IEntityRepository<Car>
     {
 
-        List<CarsDetailDto> GetCarsDetails();
+        List<CarDetailDto> GetCarsDetails();
 
     }
 }

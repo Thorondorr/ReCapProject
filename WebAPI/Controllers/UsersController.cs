@@ -13,8 +13,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        IUserServices _userServices;
-        public UsersController(IUserServices userServices)
+        IUserService _userServices;
+        public UsersController(IUserService userServices)
         {
             _userServices = userServices;
         }
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Users user)
+        public IActionResult Add(User user)
         {
             var result = _userServices.Add(user);
             if (result.Succes)
@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Users user)
+        public IActionResult Delete(User user)
         {
             var result = _userServices.Delete(user);
             if (result.Succes)
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Users user)
+        public IActionResult Update(User user)
         {
             var result = _userServices.Update(user);
             if (result.Succes)

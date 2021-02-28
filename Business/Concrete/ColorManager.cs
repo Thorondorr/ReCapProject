@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class ColorManager : IColorServices
+    public class ColorManager : IColorService
     {
         IColorDal _colorDal;
         public ColorManager(IColorDal colorDal)
@@ -17,32 +17,32 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public IResult Add(Colors color)
+        public IResult Add(Color color)
         {
             _colorDal.Add(color);
             return new Result(true, Messages.Succesful);
         }
 
-        public IResult Delete(Colors color)
+        public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
             return new Result(true, Messages.Succesful); ;
         }
 
-        public IDataResult<List<Colors>> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return new SuccesDataResult<List<Colors>>(_colorDal.GetAll(),Messages.RentalAdded);
+            return new SuccesDataResult<List<Color>>(_colorDal.GetAll(),Messages.RentalAdded);
         }
 
-        public IResult Update(Colors color)
+        public IResult Update(Color color)
         {
             _colorDal.Update(color);
             return new Result(true, Messages.Succesful);
         }
 
-        IDataResult<List<Colors>> IColorServices.GetAll()
+        IDataResult<List<Color>> IColorService.GetAll()
         {
-           return new SuccesDataResult<List<Colors>>(_colorDal.GetAll());
+           return new SuccesDataResult<List<Color>>(_colorDal.GetAll());
         }
     }
 }

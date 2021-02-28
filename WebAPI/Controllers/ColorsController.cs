@@ -13,8 +13,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ColorsController : ControllerBase
     {
-        IColorServices _colorServices;
-        public ColorsController(IColorServices colorServices)
+        IColorService _colorServices;
+        public ColorsController(IColorService colorServices)
         {
             _colorServices = colorServices;
         }
@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Colors color)
+        public IActionResult Add(Color color)
         {
             var result = _colorServices.Add(color);
             if (result.Succes)
@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Colors color)
+        public IActionResult Delete(Color color)
         {
             var result = _colorServices.Delete(color);
             if (result.Succes)
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Colors color)
+        public IActionResult Update(Color color)
         {
             var result = _colorServices.Update(color);
             if (result.Succes)

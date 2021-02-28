@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class RentalManager : IRentalServices
+    public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
        
@@ -20,7 +20,7 @@ namespace Business.Concrete
              _rentalDal= rentalDal;
         }
 
-        public IResult Add(Rentals rental)
+        public IResult Add(Rental rental)
         {           
             if(rental.ReturnDate>rental.RentDate && rental.RentDate != null)
             {
@@ -31,20 +31,20 @@ namespace Business.Concrete
            
         }
 
-        public IResult Delete(Rentals rental)
+        public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
 
             return new Result(true, Messages.Succesful);
         }
 
-        public IDataResult<List<Rentals>> GetAll()
+        public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccesDataResult<List<Rentals>>(_rentalDal.GetAll(), Messages.RentalsListed); 
+            return new SuccesDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed); 
 
         }
 
-        public IResult Update(Rentals rental)
+        public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
             return new Result(true, Messages.Succesful);

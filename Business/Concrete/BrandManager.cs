@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class BrandManager : IBrandServices
+    public class BrandManager : IBrandService
     {
         IBrandDal _brandDal;
         public BrandManager(IBrandDal brandDal)
@@ -17,24 +17,24 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public IResult Add(Brands brand)
+        public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
           return  new Result(true,Messages.Succesful);
         }
 
-        public IResult Delete(Brands brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
             return new Result(true);
         }
 
-        public IDataResult<List<Brands>> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccesDataResult<List<Brands>>(_brandDal.GetAll(),Messages.RentalAdded);
+            return new SuccesDataResult<List<Brand>>(_brandDal.GetAll(),Messages.RentalAdded);
         }
 
-        public IResult Update(Brands brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
             return new Result(true, Messages.Succesful);

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class UserManager : IUserServices
+    public class UserManager : IUserService
     {
         IUserDal _userDal;
 
@@ -18,24 +18,24 @@ namespace Business.Concrete
         {
             _userDal = userDal;
         }
-        public IResult Add(Users user)
+        public IResult Add(User user)
         {
             _userDal.Add(user);
             return new Result(true, Messages.Succesful);
         }
 
-        public IResult Delete(Users user)
+        public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new Result(true, Messages.Succesful);
         }
 
-        public IDataResult<List<Users>> GetAll()
+        public IDataResult<List<User>> GetAll()
         {
-            return new SuccesDataResult<List<Users>>(_userDal.GetAll().ToList());
+            return new SuccesDataResult<List<User>>(_userDal.GetAll().ToList());
         }
 
-        public IResult Update(Users user)
+        public IResult Update(User user)
         {
             _userDal.Update(user);
             return new Result(true, Messages.Succesful);

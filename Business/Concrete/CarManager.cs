@@ -20,9 +20,9 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public IResult Add(Cars car)
+        public IResult Add(Car car)
         {
-            var context = new ValidationContext<Cars>(car);
+            var context = new ValidationContext<Car>(car);
             
 
             _carDal.Add(car);
@@ -32,30 +32,30 @@ namespace Business.Concrete
 
         }
 
-        public IDataResult<List<CarsDetailDto>> carsDetails()
+        public IDataResult<List<CarDetailDto>> carsDetails()
         {
-            return new SuccesDataResult<List<CarsDetailDto>>(_carDal.GetCarsDetails());
+            return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarsDetails());
         }
 
-        public IResult Delete(Cars car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new Result(true, Messages.Succesful);
         }
-        public IResult Update(Cars car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new Result(true, Messages.Succesful);
         }
 
-        public IDataResult<List<Cars>> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return new SuccesDataResult<List<Cars>>(_carDal.GetAll());
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public IDataResult<List<Cars>> GetAllByCategory(int id)
+        public IDataResult<List<Car>> GetAllByCategory(int id)
         {
-            return new SuccesDataResult<List<Cars>>(_carDal.GetAll(p => p.Id == id));
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.Id == id));
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class CustomerManager : ICustomerServices
+    public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
 
@@ -19,24 +19,24 @@ namespace Business.Concrete
             this._customerDal = customersDal;
         }
 
-        public IResult Add(Customers customer)
+        public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
             return new Result(true, Messages.Succesful);
         }
 
-        public IResult Delete(Customers customers)
+        public IResult Delete(Customer customers)
         {
             _customerDal.Delete(customers);
             return new Result(true, Messages.Succesful);
         }
 
-        public IDataResult<List<Customers>> GetAll()
+        public IDataResult<List<Customer>> GetAll()
         {
-           return new SuccesDataResult<List<Customers>>(_customerDal.GetAll().ToList());
+           return new SuccesDataResult<List<Customer>>(_customerDal.GetAll().ToList());
         }
 
-        public IResult Update(Customers customers)
+        public IResult Update(Customer customers)
         {
             _customerDal.Update(customers);
             return new Result(true, Messages.Succesful);

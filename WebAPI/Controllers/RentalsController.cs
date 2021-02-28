@@ -13,8 +13,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RentalsController : ControllerBase
     {
-        IRentalServices _rentalServices;
-        public RentalsController(IRentalServices rentalServices)
+        IRentalService _rentalServices;
+        public RentalsController(IRentalService rentalServices)
         {
             _rentalServices = rentalServices;
         }
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Rentals rental)
+        public IActionResult Add(Rental rental)
         {
             var result = _rentalServices.Add(rental);
             if (result.Succes)
@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("delete")]
-        public IActionResult Delete(Rentals rental)
+        public IActionResult Delete(Rental rental)
         {
             var result = _rentalServices.Delete(rental);
             if (result.Succes)
@@ -50,7 +50,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Rentals rental)
+        public IActionResult Update(Rental rental)
         {
             var result = _rentalServices.Update(rental);
             if (result.Succes)
