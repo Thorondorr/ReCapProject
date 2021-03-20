@@ -71,7 +71,6 @@ namespace Core.Helpers
         public IDataResult<string> Update(IFormFileCollection filess , string imagePath)
         {
 
-
             var resultDelete = Delete(imagePath);
             if (resultDelete.Succes)
             {
@@ -81,9 +80,7 @@ namespace Core.Helpers
             else
             {
                 return new ErrorDataResult<string>("Başaramdık abi upload patladı");
-            }
-            
-           
+            }                     
         }
 
         

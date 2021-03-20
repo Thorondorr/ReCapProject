@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using Core.Helpers;
 using System.Linq;
+using Core.Utilities.Business;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -28,10 +30,13 @@ namespace Business.Concrete
         }
         public IResult Add(IFormFileCollection filess,int carId)
         {
-          if(CheckCarImageCount(carId).Succes)
+            IResult logicResult = BusinessRules.Run(CheckCarImageCount(carId));
+            if (logicResult != null)
             {
+                return logicResult;
+            }
+     
                 CarImage carImage = new CarImage();
-
                 var result = _Ihelper.CopyImageToFile(filess);
 
                 _ICarImagesDal.Add(new CarImage
@@ -42,9 +47,7 @@ namespace Business.Concrete
                 });
 
                 return new SuccesResutl("Resim Kopyalandı.");
-            }
-            return new ErrorResult(CheckCarImageCount(carId).Message);
-           
+                       
         }
      
         public IResult Delete(CarImage carImage)
@@ -61,11 +64,12 @@ namespace Business.Concrete
             }                                 
         }
 
-        public IResult GetAll(CarImage carImage)
+        public IDataResult<List<CarImage>> GetAll()
         {
-            
-            throw new NotImplementedException();
+            return new SuccesDataResult<List<CarImage>>(_ICarImagesDal.GetAll());
+           
         }
+        
         public IDataResult<List<CarImage>> GetCarPictureWithCarId(CarImage carImage)
         {
             
