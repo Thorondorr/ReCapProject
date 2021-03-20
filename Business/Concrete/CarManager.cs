@@ -2,6 +2,7 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -26,6 +27,7 @@ namespace Business.Concrete
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProductservice.Get")]
         public IResult Add(Car car)
         {
 
@@ -47,20 +49,31 @@ namespace Business.Concrete
             _carDal.Delete(car);
             return new Result(true, Messages.Succesful);
         }
+        [CacheRemoveAspect("IProductservice.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);
             return new Result(true, Messages.Succesful);
         }
 
+        [CacheAspect]
+       
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccesDataResult<List<Car>>(_carDal.GetAll());
         }
 
+        [PerformanceAspect(5)]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAllByCategory(int id)
         {
             return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.Id == id));
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            throw new NotImplementedException();
         }
     }
 }
